@@ -1,34 +1,60 @@
+from abc import ABC, abstractmethod
+
+class Strategy(ABC):
+    @abstractmethod
+    def execute_start_strategy(self):
+        pass
+    
+    @abstractmethod
+    def execute_end_strategy(self):
+        pass
+
+class Nuclear(Strategy):
+    def execute_start_strategy(self):
+        print("Recuar tropas e propor cooperação econômica.")
+
+    def execute_end_strategy(self):
+        print("Desarmar o inimigo e dividir benefício.")
+
+class Army(Strategy):
+    def execute_start_strategy(self):
+        print("Atacar o inimigo pelo norte e pedir ajuda ao vizinho.")
+        
+    def execute_end_strategy(self):
+        print("Dividir benefícios e estabelecer um governo amigo.")
+
+class Fragile(Strategy):
+    def execute_start_strategy(self):
+        print("Plantar evidências falsas e lançar bombas no inimigo.")
+    
+    def execute_end_strategy(self):
+        print("Estabelecer um governo amigo e dividir custo de reconstrução.")
+    
 class War:
-    def Strategy(strategy):
-        print("the was main strategy is ",strategy)
+    def __init__(self, enemy_type):
+        if enemy_type == "Nuclear":
+            self.strategy = Nuclear()
+        elif enemy_type == "Grande exército":
+            self.strategy = Army()
+        elif enemy_type == "Frágil":
+            self.strategy = Fragile()
+        else:
+            raise ValueError("Força inimiga inválida")
 
-    def Strength(strength):
-        print("the strength of the enemy is ", strength)
+    def startWar(self):
+        print("Guerra declarada")
+        self.strategy.execute_start_strategy()
 
-    def Start(start):
-        print("the war started this way: ", start)
-    
-    def End(end):
-        print("the war ended because of: ", end)
-    
-    class interfaceStrategy:
-        def do_strategy(str):
-            return str
+    def endWar(self):
+        print("Guerra concluída")
+        self.strategy.execute_end_strategy()
 
-    class interfaceStrength:
-        def do_measure_strength(str):
-            return str
-    
-    class interfaceStart:
-        def do_determine_start(str):
-            return str
+def main():
+    simulation = War("Nuclear")
 
-    class interfaceEnd:
-        def do_determine_end(str):
-            return str
+    simulation.startWar()
 
+    simulation.endWar()
 
-War.Start("Recuar tropas")
-War.End("Desarmar inimigo")
-War.Strength("Nuclear")
-War.Strategy("Diplomacia")
+if __name__ == "__main__":
+    main()
